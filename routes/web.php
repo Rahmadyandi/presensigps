@@ -7,13 +7,11 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Admin_DashboardController;
-use App\Http\Controllers\Admin_PresensiController;
+use App\Http\Controllers\PenelitianController;
 use App\Http\Controllers\Admin_DosenController;
+use App\Http\Controllers\Admin_PresensiController;
+use App\Http\Controllers\Admin_DashboardController;
 use App\Http\Controllers\Admin_PengajuanController;
-use App\Http\Controllers\HistoriController;
-use App\Http\Controllers\PengajuanController;
-use App\Http\Controllers\ProfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +50,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/dashboardAdmin/pengajuan/terima/{id}', [Admin_PengajuanController::class, 'terima'])->name('terima_izin');
     Route::put('/dashboardAdmin/pengajuan/tolak/{id}', [Admin_PengajuanController::class, 'tolak'])->name('tolak_izin');
     
+    Route::get('/dashboard/penelitian', [PenelitianController::class, 'index'])->name('penelitian');
+    Route::put('/dashboard/penelitian/ajukan', [PenelitianController::class, 'post'])->name('ajukan_penelitian');
+    Route::put('/dashboard/penelitian/terima/{id_penelitian}', [PenelitianController::class, 'terima'])->name('terima_penelitian');
+    Route::put('/dashboard/penelitian/tolak/{id_penelitian}', [PenelitianController::class, 'tolak'])->name('tolak_penelitian');
+
     Route::get('/dashboardAdmin/presensi', [Admin_PresensiController::class, 'index'])->name('data_presensi');
     Route::delete('/dashboardAdmin/presensi/{id}/hapus', [Admin_PresensiController::class, 'destroy'])->name('hapus_absensi');
 });
@@ -68,16 +71,16 @@ Route::middleware(['auth:dosen'])->group(function () {
     Route::post('/presensi/halamanupload/uploadabsensi', [PresensiController::class, 'uploadabsensi']);
 
     // editprofil
-    Route::get('/editprofil', [ProfilController::class, 'editprofil']);
-    Route::post('/presensi/{nip}/updateprofil', [ProfilController::class, 'updateprofil']);
+    Route::get('/editprofil', [PresensiController::class, 'editprofil']);
+    Route::post('/presensi/{nip}/updateprofil', [PresensiController::class, 'updateprofil']);
 
     //histori
-    Route::get('/presensi/histori', [HistoriController::class, 'histori']);
-    Route::post('/gethistori', [HistoriController::class, 'gethistori']);
+    Route::get('/presensi/histori', [PresensiController::class, 'histori']);
+    Route::post('/gethistori', [PresensiController::class, 'gethistori']);
 
     //izin
-    Route::get('/presensi/izin', [PengajuanController::class, 'izin']);
-    Route::get('/presensi/pengajuanizin', [PengajuanController::class, 'pengajuanizin']);
-    Route::post('/presensi/storeizin', [PengajuanController::class, 'storeizin']);
+    Route::get('/presensi/izin', [PresensiController::class, 'izin']);
+    Route::get('/presensi/pengajuanizin', [PresensiController::class, 'pengajuanizin']);
+    Route::post('/presensi/storeizin', [PresensiController::class, 'storeizin']);
    
 });
