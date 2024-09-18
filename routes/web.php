@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin_DosenController;
 use App\Http\Controllers\Admin_PresensiController;
 use App\Http\Controllers\Admin_DashboardController;
 use App\Http\Controllers\Admin_PengajuanController;
+use App\Http\Controllers\HistoriController;
+use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\ProfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,16 +74,16 @@ Route::middleware(['auth:dosen'])->group(function () {
     Route::post('/presensi/halamanupload/uploadabsensi', [PresensiController::class, 'uploadabsensi']);
 
     // editprofil
-    Route::get('/editprofil', [PresensiController::class, 'editprofil']);
-    Route::post('/presensi/{nip}/updateprofil', [PresensiController::class, 'updateprofil']);
+    Route::get('/editprofil', [ProfilController::class, 'editprofil']);
+    Route::post('/presensi/{nip}/updateprofil', [ProfilController::class, 'updateprofil']);
 
     //histori
-    Route::get('/presensi/histori', [PresensiController::class, 'histori']);
-    Route::post('/gethistori', [PresensiController::class, 'gethistori']);
+    Route::get('/presensi/histori', [HistoriController::class, 'histori']);
+    Route::post('/gethistori', [HistoriController::class, 'gethistori']);
 
     //izin
-    Route::get('/presensi/izin', [PresensiController::class, 'izin']);
-    Route::get('/presensi/pengajuanizin', [PresensiController::class, 'pengajuanizin']);
-    Route::post('/presensi/storeizin', [PresensiController::class, 'storeizin']);
+    Route::get('/presensi/izin', [PengajuanController::class, 'izin']);
+    Route::get('/presensi/pengajuanizin', [PengajuanController::class, 'pengajuanizin']);
+    Route::post('/presensi/storeizin', [PengajuanController::class, 'storeizin']);
    
 });
