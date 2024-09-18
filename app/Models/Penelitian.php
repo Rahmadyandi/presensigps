@@ -11,10 +11,15 @@ class Penelitian extends Model
     protected $table = 'penelitian';
     protected $primaryKey = 'id_penelitian';
     protected $fillable = [
-        'id_user',
+        'id_dosen',
         'tanggal',
         'bukti',
         'lokasi',
         'verifikasi',
     ];
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'id_dosen');
+    }
 }
