@@ -49,9 +49,11 @@
                                         <th>Jam Masuk</th>
                                         <th>Foto Masuk</th>
                                         <th>Lokasi Masuk</th>
+                                        <th>Keterangan Masuk</th>
                                         <th>Jam Pulang</th>
                                         <th>Foto Pulang</th>
                                         <th>Lokasi Pulang</th>
+                                        <th>Keterangan Pulang</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -89,8 +91,13 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <img src="{{ asset('storage/uploads/absensi/' . $p->foto_in) }}"
-                                                                        class="img-fluid" />
+                                                                    @if (Str::startsWith($p->foto_in, 'uploads/absensi/'))
+                                                                        <img src="{{ asset('storage/' . $p->foto_in) }}"
+                                                                            class="img-fluid" />
+                                                                    @else
+                                                                        <img src="{{ asset('storage/uploads/absensi/' . $p->foto_in) }}"
+                                                                            class="img-fluid" />
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -100,6 +107,9 @@
                                                     <a type="button" class="btn btn-primary btn-sm" href="#"
                                                         onclick="openMapModal('{{ $p->lokasi_in }}', 'modallokasi-{{ $p->id }}')">Lihat
                                                         Lokasi</a>
+                                                </td>
+                                                <td>
+                                                    {{ $p->keterangan_in ?? '-' }}
                                                 </td>
 
                                                 <td>{{ $p->jam_out ?? '-' }}</td>
@@ -127,9 +137,15 @@
                                                                         </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <img src="{{ asset('storage/uploads/absensi/' . $p->foto_out) }}"
-                                                                            class="img-fluid" />
+                                                                        @if (Str::startsWith($p->foto_in, 'uploads/absensi/'))
+                                                                            <img src="{{ asset('storage/' . $p->foto_out) }}"
+                                                                                class="img-fluid" />
+                                                                        @else
+                                                                            <img src="{{ asset('storage/uploads/absensi/' . $p->foto_out) }}"
+                                                                                class="img-fluid" />
+                                                                        @endif
                                                                     </div>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -145,33 +161,46 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus-{{ $p->id }}">
+                                                    {{ $p->keterangan_out ?? '-' }}
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                        data-toggle="modal"
+                                                        data-target="#modal-hapus-{{ $p->id }}">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                    <div class="modal fade" id="modal-hapus-{{ $p->id }}" tabindex="-1" role="dialog" aria-labelledby="modal-hapusLabel"
+                                                    <div class="modal fade" id="modal-hapus-{{ $p->id }}"
+                                                        tabindex="-1" role="dialog" aria-labelledby="modal-hapusLabel"
                                                         aria-hidden="true">
-                                                       <div class="modal-dialog" role="document">
-                                                           <div class="modal-content">
-                                                               <div class="modal-header">
-                                                                   <h5 class="modal-title" id="modal-hapusLabel">Konfirmasi Hapus Data</h5>
-                                                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                       <span aria-hidden="true">×</span>
-                                                                   </button>
-                                                               </div>
-                                                               <div class="modal-body">
-                                                                   Apakah Anda yakin ingin menghapus {{ $title }}?
-                                                               </div>
-                                                               <div class="modal-footer">
-                                                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                   <form action="{{ route('hapus_absensi', ['id' => $p->id]) }}" method="POST">
-                                                                       @csrf
-                                                                       @method('DELETE')
-                                                                       <button type="submit" class="btn btn-danger">Hapus</button>
-                                                                   </form>
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                   </div>  
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="modal-hapusLabel">
+                                                                        Konfirmasi Hapus Data</h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Apakah Anda yakin ingin menghapus
+                                                                    {{ $title }}?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Tutup</button>
+                                                                    <form
+                                                                        action="{{ route('hapus_absensi', ['id' => $p->id]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Hapus</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

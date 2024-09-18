@@ -48,13 +48,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/dashboardAdmin/dosen/tolak/{id}', [Admin_DosenController::class, 'tolak'])->name('tolak_dosen');
     Route::put('/dashboardAdmin/dosen/terima/{id}', [Admin_DosenController::class, 'terima'])->name('terima_dosen');
     Route::delete('/dashboardAdmin/dosen/hapus/{id}', [Admin_DosenController::class, 'destroy'])->name('hapus_dosen');
-    
+
     Route::get('/dashboardAdmin/pengajuan', [Admin_PengajuanController::class, 'index'])->name('data_pengajuan');
     Route::put('/dashboardAdmin/pengajuan/terima/{id}', [Admin_PengajuanController::class, 'terima'])->name('terima_izin');
     Route::put('/dashboardAdmin/pengajuan/tolak/{id}', [Admin_PengajuanController::class, 'tolak'])->name('tolak_izin');
-    
+
     Route::get('/dashboard/penelitian', [PenelitianController::class, 'index'])->name('penelitian');
-    Route::put('/dashboard/penelitian/ajukan', [PenelitianController::class, 'post'])->name('ajukan_penelitian');
+    Route::get('/dashboard/penelitian/ajukan', [PenelitianController::class, 'create'])->name('ajukan_penelitian');
+    Route::post('/dashboard/penelitian/ajukan/post', [PenelitianController::class, 'post'])->name('post.ajukan_penelitian');
     Route::put('/dashboard/penelitian/terima/{id_penelitian}', [PenelitianController::class, 'terima'])->name('terima_penelitian');
     Route::put('/dashboard/penelitian/tolak/{id_penelitian}', [PenelitianController::class, 'tolak'])->name('tolak_penelitian');
 
@@ -85,5 +86,7 @@ Route::middleware(['auth:dosen'])->group(function () {
     Route::get('/presensi/izin', [PengajuanController::class, 'izin']);
     Route::get('/presensi/pengajuanizin', [PengajuanController::class, 'pengajuanizin']);
     Route::post('/presensi/storeizin', [PengajuanController::class, 'storeizin']);
-   
+
+    Route::get('/dashboard/penelitian/ajukan', [PenelitianController::class, 'create'])->name('ajukan_penelitian');
+    Route::post('/dashboard/penelitian/ajukan/post', [PenelitianController::class, 'post'])->name('post.ajukan_penelitian');
 });

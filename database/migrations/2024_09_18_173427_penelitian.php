@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('penelitian', function (Blueprint $table) {
             $table->id('id_penelitian');
-            $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('id_dosen');
+            $table->foreign('id_dosen')->references('id')->on('dosen')->onDelete('cascade');
             $table->date('tanggal');
-            $table->string('bukti');
+            $table->string('bukti')->nullable();
             $table->string('lokasi');
             $table->enum('verifikasi',['diterima', 'ditolak', 'menunggu'])->default('menunggu');
-
+            $table->timestamps();
         });
     }
 
