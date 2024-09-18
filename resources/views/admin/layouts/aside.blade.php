@@ -49,6 +49,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('penelitian') }}"
+                            class="nav-link {{ $active === 'penelitian' ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-file"></i>
+                            <p>
+                                Kelola Data Penelitian
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('data_presensi') }}"
                             class="nav-link {{ $active === 'absensi' ? ' active' : '' }}">
                             <i class="nav-icon fas fa-file"></i>
