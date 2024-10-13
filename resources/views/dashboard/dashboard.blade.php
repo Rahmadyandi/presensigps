@@ -38,6 +38,16 @@
                         <div class="presencecontent">
                             <div class="iconpresence">
                                 @if ($presensihariini != null)
+                                
+
+                                @if ($penelitian)
+                                @php 
+                                    $path = Storage::url($penelitian->bukti);
+                                @endphp
+
+                                <img src="{{ url($path) }}" alt="avatar" class="imaged w64" style="height: 60px">
+                                @endif
+
                                     @php
                                         $path = Storage::url('uploads/absensi/'.$presensihariini->foto_in);
                                     @endphp
@@ -64,6 +74,17 @@
                         <div class="presencecontent">
                             <div class="iconpresence">
                                 @if ($presensihariini != null && $presensihariini->jam_out != null)
+                                
+                                
+                                   @if ($penelitian)
+                             
+                                @php 
+                                $path = Storage::url($penelitian->bukti);
+                                @endphp
+
+                                <img src="{{ url($path) }}" alt="avatar" class="imaged w64" style="height: 60px">
+                                @endif
+
                                     @php
                                         $path = Storage::url('uploads/absensi/'.$presensihariini->foto_out);
                                     @endphp

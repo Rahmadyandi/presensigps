@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Penelitian;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,9 @@ class DashboardController extends Controller
         $bulanini = date("m") * 1;
         $tahunini = date("Y");
         $nip = Auth::guard('dosen')->user()->nip;
+
+        $penelitian = Penelitian::where('id_dosen', Auth::guard('dosen')->user()->id)->latest()->get()->first();
+    
 
         $presensihariini = DB::table('presensi')
             ->where('nip', $nip)
@@ -52,6 +56,6 @@ class DashboardController extends Controller
             ->where('status_approved', 1)
             ->first();
 
-        return view('dashboard.dashboard', compact('presensihariini', 'historibulanini', 'namabulan', 'bulanini', 'tahunini', 'rekappresensi', 'leaderboard', 'rekapizin'));
+        return view('dashboard.dashboard', compact('presensihariini', 'historibulanini', 'namabulan', 'bulanini', 'tahunini', 'rekappresensi', 'leaderboard', 'rekapizin', 'penelitian'));
     }
 }

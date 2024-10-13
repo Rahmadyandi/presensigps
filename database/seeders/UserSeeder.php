@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             [
                 'id_user' => '1',
                 'nip' => '2003113950',
-                'nama_lengkap' => 'Rahmad Yandi',
+                'nama_lengkap' => 'Rahmad Yandi Mardani',
                 'jabatan' => 'Head of IT',
                 'no_hp' => '082386953592',
                 'password' => Hash::make('password'),

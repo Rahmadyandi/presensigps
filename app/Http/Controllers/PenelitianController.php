@@ -55,11 +55,14 @@ class PenelitianController extends Controller
                     'keterangan_out' => 'Penelitian diterima'
                 ]);
 
-                return redirect()->back()->with('success', 'Izin penelitian diterima dan presensi dicatat.');
+                return redirect()->route('penelitian')->with('success', 'Izin penelitian diterima dan presensi dicatat.');
             }
 
-            return redirect()->back()->with('error', 'Penelitian tidak ditemukan.');
+            return redirect()->route('penelitian')->with('error', 'Penelitian tidak ditemukan.');
         });
+
+        
+        return redirect()->route('penelitian')->with('success', 'Izin penelitian diterima dan presensi dicatat.');
     }
 
     public function tolak(Request $request, $id_penelitian)
@@ -69,10 +72,10 @@ class PenelitianController extends Controller
             $penelitian->verifikasi = 'ditolak';
             $penelitian->save();
 
-            return redirect()->back()->with('success', 'Izin penelitian ditolak.');
+            return redirect()->route('penelitian')->with('success', 'Izin penelitian ditolak.');
         }
 
-        return redirect()->back()->with('error', 'Penelitian tidak ditemukan.');
+        return redirect()->route('penelitian')->with('error', 'Penelitian tidak ditemukan.');
     }
 
     /**
@@ -160,7 +163,7 @@ class PenelitianController extends Controller
             $penelitian->save(); // Update the record with the file path
         }
 
-        return redirect()->back()->with('success', 'Penelitian berhasil diajukan.');
+        return redirect('/presensi/izin')->with('success', 'Bukti Penelitian berhasil diajukan.');
     }
 
     /**
