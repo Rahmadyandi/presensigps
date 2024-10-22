@@ -17,8 +17,10 @@ class DashboardController extends Controller
         $tahunini = date("Y");
         $nip = Auth::guard('dosen')->user()->nip;
 
-        $penelitian = Penelitian::where('id_dosen', Auth::guard('dosen')->user()->id)->latest()->get()->first();
-    
+        $penelitian = Penelitian::join('dosen', 'penelitian.id_dosen', '=', 'dosen.id')
+            ->where('penelitian.id_dosen', Auth::guard('dosen')->user()->id)
+            ->latest('penelitian.created_at')
+            ->first(['penelitian.*', 'dosen.nama_lengkap as nama_dosen']);
 
         $presensihariini = DB::table('presensi')
             ->where('nip', $nip)
